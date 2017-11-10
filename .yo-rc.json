@@ -1,0 +1,9 @@
+{
+  "generator-react-skeleton": {
+    "promptValues": {
+      "sourceRoot": "src",
+      "styledComponents": true
+    },
+    "sourceRoot": "src"
+  }
+}
