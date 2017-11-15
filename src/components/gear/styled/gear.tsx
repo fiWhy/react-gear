@@ -13,9 +13,9 @@ const rotate360 = keyframes`
 export default styled.div`
     display: inline-block;
     .roll {
-        animation: 
-            ${rotate360} 
-            2s 
-            ease-in;
+        animation: ${p => {
+            return `${rotate360} ${p.theme.rollingAnimationDuration} ${p.theme.infinite? 'linear infinite':'ease-in-out'}`
+        }
+    };
     }
 `;

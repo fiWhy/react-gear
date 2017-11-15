@@ -118,6 +118,7 @@ export default class App extends React.Component<any, ITeethState>{
         return <div><Gear radius={50}
             onMouseEnter={this.drawGear}
             onMouseLeave={this.eraseGear}
+            infinite={true}
             teeth={teeth}
             roll={roll}
             outerDiameter={outerDiameter}
