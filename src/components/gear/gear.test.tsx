@@ -4,7 +4,7 @@ import "jest";
 import Gear from "./gear";
 
 describe("Gear Component", () => {
-    const component = create(<Gear />)
+    const component = create(<Gear radius={10} onMouseEnter={() => { }} onMouseLeave={() => { }} />)
     const tree = component.toJSON();
     it("renders", () => {
         expect(tree).toMatchSnapshot();
