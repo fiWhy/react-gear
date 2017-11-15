@@ -1,10 +1,10 @@
 import * as React from "react";
 import { ThemeProvider } from "styled-components";
-import GearContainer from "./styled/gear";
-import { drawGear, drawCircle } from "./lib";
+import GearContainer from "../styled/gear";
+import { drawGear, drawCircle } from "../lib";
 
 
-const Gear = ({ radius, roll = false, rollingAnimationDuration = "2s", infinite = false, fill = "transparent", teeth = 8, off = 90, teethDiameter = 1, outerDiameter = .6875, innerDiameter = .375, splay = .375, onMouseEnter, onMouseLeave }) => {
+const Gear = ({ radius, roll = false, rollingAnimationDuration = "2s", infinite = false, fill = "transparent", teeth = 8, off = 90, teethDiameter = 1, outerDiameter = .6875, innerDiameter = .375, splay = .375, onMouseEnter = () => {}, onMouseLeave = () => {} }) => {
     const { pathData, svgSize, viewBox } = teeth ? drawGear({ radius, teeth, off, teethDiameter, outerDiameter, innerDiameter, splay }) :
         drawCircle(radius, outerDiameter, innerDiameter);
     return <ThemeProvider theme={{

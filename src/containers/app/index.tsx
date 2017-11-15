@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { AppService } from "./services/app.service";
-import Gear from "../../components/gear/gear";
+import Gear from "../../components/gear";
 
 interface ITeethState {
     [x: string]: any;
