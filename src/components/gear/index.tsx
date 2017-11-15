@@ -1,11 +1,11 @@
 import * as React from 'react';
 import GearPresentation from "./components/gear";
 
-interface IGearProps {
+export interface IGearProps {
     radius: number;
     roll?: boolean;
     rollingAnimationDuration?: string;
-    infinite?: boolean;
+    infinite: boolean;
     fill?: string;
     teeth?: number;
     off?: number;

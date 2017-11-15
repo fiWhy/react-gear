@@ -1,30 +1,33 @@
 import * as React from 'react';
 import Gear from "../../components/gear";
 
-interface ITeethState {
+import { IGearProps } from "../../components/gear";
+
+interface IAnimatedGearState extends IGearProps {
     [x: string]: any;
-    teeth: number;
-    teethDiameter: number;
-    teethDiameterMax: number;
-    teethDiameterMin: number;
-    outerDiameter: number;
-    innerDiameter: number;
-    innerDiameterMax: number;
-    innerDiameterMin: number;
-    roll: boolean;
+    teethDiameterMax?: number;
+    teethDiameterMin?: number;
+    innerDiameterMax?: number;
+    innerDiameterMin?: number;
+    onDrawFinished?: () => void;
+    onEraseFinished?: () => void;
+}
+
+interface IanimatedGearProps extends IAnimatedGearState {
+    fill: string;
 }
 
 interface IIntervalObject {
     [x: string]: any;
 }
 
-export default class App extends React.Component<any, ITeethState>{
-    private potentialTeeth: number = 8;
+export default class AnimatedGear extends React.Component<IanimatedGearProps, IAnimatedGearState>{
+    private potentialTeeth: number = this.props.teeth || 8;
     private drawInterval: IIntervalObject = {};
     private eraseInterval: IIntervalObject = {};
     constructor(props: any) {
         super(props);
-        this.state = {
+        this.state = Object.assign({
             teeth: 0,
             teethDiameter: .85,
             teethDiameterMax: 1,
@@ -34,7 +37,7 @@ export default class App extends React.Component<any, ITeethState>{
             innerDiameterMax: .6,
             innerDiameterMin: 0,
             roll: false
-        };
+        }, this.props);
     }
 
     stopDraw(element) {
@@ -86,16 +89,24 @@ export default class App extends React.Component<any, ITeethState>{
             this.draw("teethDiameter"),
             this.draw("innerDiameter", 10)
         ]).then(() => {
+            const { onDrawFinished } = this.props;
+
             this.rollForward();
+
+            onDrawFinished && onDrawFinished()
         })
     }
 
     eraseGear = () => {
         this.rollBack();
         this.erase("teethDiameter").then(() => {
+            const { onEraseFinished } = this.props;
+
             this.setState({
                 teeth: 0
             })
+            
+            onEraseFinished && onEraseFinished();
         });
         this.erase("innerDiameter", 10);
     }
@@ -113,16 +124,16 @@ export default class App extends React.Component<any, ITeethState>{
     }
 
     render() {
-        const { teeth, innerDiameter, outerDiameter, teethDiameter, roll } = this.state;
-        return <div><Gear radius={50}
+        const { teeth, infinite, radius, innerDiameter, outerDiameter, teethDiameter, roll, fill } = this.state;
+        return <Gear radius={radius}
             onMouseEnter={this.drawGear}
             onMouseLeave={this.eraseGear}
-            infinite={true}
+            infinite={infinite}
             teeth={teeth}
             roll={roll}
             outerDiameter={outerDiameter}
             teethDiameter={teethDiameter}
             innerDiameter={innerDiameter}
-            fill={"red"} /></div>;
+            fill={fill} />;
     }
 }
